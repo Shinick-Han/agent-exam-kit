@@ -72,3 +72,8 @@ binding was available, so this existing checkout was not enrolled in StorageGuar
   `55cb53f11d7087fa8aa5d6109761b8c78a9e91543a55bf76e8e10f50a906bc0d`.
 - Dedicated Worker deployment dry run passed. This validates packaging and
   installation; it does not establish exam approval or model behavior in an exam.
+- Published v0.3.0 release and deployed Worker version
+  `bd5462e7-c0c1-4288-a7f6-9ced6beb627d`. Public short-URL test passed with fresh
+  downloads, all four skills and Herdr 0.9.5, without Python/Node/Git/jq on PATH.
+  The initial check saw the previous version during deployment propagation; the
+  subsequent exact-script comparison and installation passed. HEAD reports 0.3.0.
