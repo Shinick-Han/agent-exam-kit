@@ -1,0 +1,72 @@
+{
+  "version": "0.1.0",
+  "herdr": {
+    "linux-aarch64": {
+      "name": "herdr-linux-aarch64",
+      "version": "v0.9.5",
+      "url": "https://github.com/herdrdev/herdr/releases/download/v0.9.5/herdr-linux-aarch64",
+      "sha256": "17d7536f2da50859523680ef279dffcac8e4a235f4e46fe8da6c2ec44141897c"
+    },
+    "linux-x86_64": {
+      "name": "herdr-linux-x86_64",
+      "version": "v0.9.5",
+      "url": "https://github.com/herdrdev/herdr/releases/download/v0.9.5/herdr-linux-x86_64",
+      "sha256": "14d9e8bc8b4a9e0118d77c32266f76d461f09b40342eb23752960bd89f59929d"
+    },
+    "macos-aarch64": {
+      "name": "herdr-macos-aarch64",
+      "version": "v0.9.5",
+      "url": "https://github.com/herdrdev/herdr/releases/download/v0.9.5/herdr-macos-aarch64",
+      "sha256": "fb77c2232a05a8035421382c894392f4174e4e38a18e48af3dd0290157c3a7e2"
+    },
+    "macos-x86_64": {
+      "name": "herdr-macos-x86_64",
+      "version": "v0.9.5",
+      "url": "https://github.com/herdrdev/herdr/releases/download/v0.9.5/herdr-macos-x86_64",
+      "sha256": "5fb0a908ec7f6745e3e245738b06bfad56c46391c391ab3c0955fbead01f1369"
+    },
+    "windows-x86_64": {
+      "name": "herdr-windows-x86_64",
+      "version": "v0.9.5",
+      "url": "https://github.com/herdrdev/herdr/releases/download/v0.9.5/herdr-windows-x86_64.zip",
+      "sha256": "d2c6c9c971c43a0bfdde8c692a9a1a7a45c3e4807cd01ae45662b4734fac1cbf",
+      "zip_member": "herdr.exe"
+    }
+  },
+  "skills": [
+    {
+      "name": "anti-defensive-writing",
+      "repo": "Kiterlin/anti-defensive-writing",
+      "commit": "f516147d017a3fe43ae99192cb89d8261b0c8679",
+      "url": "https://codeload.github.com/Kiterlin/anti-defensive-writing/zip/f516147d017a3fe43ae99192cb89d8261b0c8679",
+      "sha256": "c21bede95be8a8f7ead1274ded857cad684fa4435d235755c911cb62ecaf4fd9",
+      "prefix": "anti-defensive-writing-f516147d017a3fe43ae99192cb89d8261b0c8679/skill/anti-defensive-writing/"
+    },
+    {
+      "name": "avoid-ai-writing",
+      "repo": "conorbronsdon/avoid-ai-writing",
+      "commit": "9cd07215982eca9736e14caaa63241c0264856f3",
+      "url": "https://codeload.github.com/conorbronsdon/avoid-ai-writing/zip/9cd07215982eca9736e14caaa63241c0264856f3",
+      "sha256": "1559982c4482b6924994cd8de9f35b980ff50b6b328d4a2fff61e9174877c915",
+      "prefix": "avoid-ai-writing-9cd07215982eca9736e14caaa63241c0264856f3/",
+      "includes": [
+        "SKILL.md",
+        "references",
+        "scripts",
+        "detector",
+        "examples",
+        "agents",
+        "LICENSE",
+        "NOTICE.md"
+      ]
+    },
+    {
+      "name": "stop-slop-ko",
+      "repo": "leeandev/stop-slop-ko",
+      "commit": "553be0525c28f593f103fbebae4c1f15684a81e5",
+      "url": "https://codeload.github.com/leeandev/stop-slop-ko/zip/553be0525c28f593f103fbebae4c1f15684a81e5",
+      "sha256": "0f7178dee2d7717ad0c088d22a8dbe5ce57187209ae8797e31077fc7fd4634dd",
+      "prefix": "stop-slop-ko-553be0525c28f593f103fbebae4c1f15684a81e5/plugins/stop-slop-ko/skills/stop-slop-ko/"
+    }
+  ]
+}
