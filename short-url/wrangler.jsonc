@@ -1,0 +1,13 @@
+{
+  "name": "agent-exam-kit",
+  "account_id": "96aee9d5fb56f2efc3d90e147a67f558",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-10-30",
+  "workers_dev": true,
+  "rules": [{"type": "Text", "globs": ["**/*.sh"], "fallthrough": true}],
+  "routes": [
+    {"pattern": "kit.shinick.dev", "custom_domain": true},
+    {"pattern": "kit.shinick.dev/*", "zone_name": "shinick.dev"}
+  ],
+  "observability": {"enabled": true, "traces": {"enabled": true}}
+}

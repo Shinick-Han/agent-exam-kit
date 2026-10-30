@@ -88,6 +88,7 @@ $bootstrap = @'
 ''' + bootstrap + "'@\n" + '''& $python.Source -c $bootstrap @kitArgs
 if ($LASTEXITCODE -ne 0) { throw "Agent exam kit failed (exit $LASTEXITCODE)." }
 '''
-(ROOT / "install.sh").write_text(shell, "utf-8", newline="\n")
+# Unix installation is generated separately without a Python runtime.
+(ROOT / "install-python.sh").write_text(shell, "utf-8", newline="\n")
 (ROOT / "install.ps1").write_text(powershell, "utf-8", newline="\n")
 print("Locked engine:", engine_sha)

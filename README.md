@@ -4,21 +4,27 @@
 
 ## 설치
 
-Python 3.9 이상이 필요하다. Codex는 실행 환경에서 제공하는 버전을 그대로 사용한다.
+Linux/macOS 설치는 Python, Node, Git, jq 없이 실행한다. `sh`, `curl`, `tar`, `gzip`, SHA-256 도구와 기본 셸 명령을 사용한다. Codex는 실행 환경에서 제공하는 버전을 그대로 사용한다.
 
 Linux / macOS:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Shinick-Han/agent-exam-kit/v0.1.0/install.sh | bash
+curl -fsSL https://kit.shinick.dev | sh
 ```
 
-Windows PowerShell:
+고정된 공개 원본 주소:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Shinick-Han/agent-exam-kit/v0.2.0/install.sh | sh
+```
+
+Windows PowerShell용 기존 설치기는 Python 3.9 이상을 사용한다:
 
 ```powershell
 irm https://raw.githubusercontent.com/Shinick-Han/agent-exam-kit/v0.1.0/install.ps1 | iex
 ```
 
-설치 후 출력되는 `Start Herdr`의 경로로 실행한다. 셸 프로필과 PATH는 수정하지 않는다.
+설치 후 출력되는 실행 경로를 사용한다. 셸 프로필과 PATH는 수정하지 않는다.
 
 ```bash
 ~/.agent-exam-kit/bin/herdr
@@ -48,9 +54,9 @@ Herdr의 GUI 앱이 아닌 터미널 버전을 설치한다. 각 Skill의 참조
 - 사용자 권한으로 지정 디렉터리에 설치한다. `sudo`와 관리자 권한을 요구하지 않는다.
 - 설치기는 GitHub에서 내려받는 GET 요청만 보낸다. 작업 파일, 프롬프트, 인증 파일은 읽거나 전송하지 않는다.
 - Codex 설치·업데이트, 인증·모델·권한 설정 변경, Herdr 통합 훅 설치를 수행하지 않는다.
-- Skill 파일이 모두 같으면 재설치를 생략한다. 다른 내용이 있는 기존 디렉터리는 보존하고 `kept_existing_not_verified`로 보고한다.
+- Unix 설치기는 기존 Skill 디렉터리를 보존하고 검증하지 않은 기존 설치로 기록한다. Windows 설치기는 파일이 모두 같으면 재설치를 생략하고, 다르면 기존 내용을 보존한다.
 - 각 다운로드의 SHA-256을 검증한다. 검증 실패 시 설치를 중단한다.
-- 설치 결과는 `~/.agent-exam-kit/receipt.json`에 남긴다.
+- Unix 설치 결과는 `~/.agent-exam-kit/receipt-unix.txt`, Windows 결과는 `~/.agent-exam-kit/receipt.json`에 남긴다.
 - 설치는 에이전트를 실행하거나 Skill을 자동 호출하지 않는다. 새 Codex 세션에서 필요한 Skill을 명시해 사용한다.
 
 현재 Codex 세션에서 새 Skill을 찾지 못하면 `~/.agents/skills/<이름>/SKILL.md`를 읽도록 요청한다.
@@ -59,8 +65,8 @@ Herdr의 GUI 앱이 아닌 터미널 버전을 설치한다. 각 Skill의 참조
 ## 미리 확인 / 일부 설치
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Shinick-Han/agent-exam-kit/v0.1.0/install.sh | bash -s -- --dry-run
-curl -fsSL https://raw.githubusercontent.com/Shinick-Han/agent-exam-kit/v0.1.0/install.sh | bash -s -- --skills-only
+curl -fsSL https://kit.shinick.dev | sh -s -- --dry-run
+curl -fsSL https://kit.shinick.dev | sh -s -- --skills-only
 ```
 
 PowerShell에서 옵션을 전달하려면 파일로 내려받는다.
@@ -70,8 +76,24 @@ Invoke-WebRequest https://raw.githubusercontent.com/Shinick-Han/agent-exam-kit/v
 ./install-kit.ps1 --dry-run
 ```
 
-개발자용 옵션: `--root PATH`, `--skills-dir PATH`, `--manifest FILE`, `--cache DIR`, `--herdr-only`.
+Unix 옵션: `--root PATH`, `--skills-dir PATH`, `--cache DIR`, `--herdr-only`. Windows Python 설치기는 `--manifest FILE`도 지원한다.
 다른 내용의 기존 파일을 자동 덮어쓰는 옵션은 없다.
+
+## Python이 없는 환경
+
+설치와 Herdr 실행, Skill 문체 규칙 사용에는 Python이 필요 없다.
+`stop-slop-ko`의 기계적 스캐너는 Python을 사용하므로 Python이 없으면 수동 문체 검토를 진행하고 스캔은 `NOT_RUN`으로 기록한다.
+`avoid-ai-writing`의 Node 검사기도 Node가 있을 때만 실행한다.
+설치기는 Python이나 Node를 추가 설치하지 않는다.
+
+실제 응시 서버의 OS는 공식 안내에 명시되지 않았다. 터미널에서 `uname -s`로 확인할 수 있다.
+Unix 설치기는 Linux/macOS와 x64/ARM64를 감지하며 지원하지 않는 조합에서는 중단한다.
+
+## 번들 재생성
+
+`python build_unix_bundle.py`는 개발자 PC에서만 실행한다. 고정한 공개 원본으로 검증된 Skill 압축 파일과 Python 없는 `install.sh`를 생성한다.
+`release/writing-skills.tar.gz`와 `release/SHA256SUMS`는 공개 v0.2.0 릴리스에 첨부한다.
+`lock_sources.py`는 기존 Python 진입점을 `install-python.sh`로 생성하며 Unix 진입점을 덮어쓰지 않는다.
 
 ## 시험에서 사용
 

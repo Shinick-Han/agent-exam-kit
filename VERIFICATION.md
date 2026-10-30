@@ -36,3 +36,16 @@ installations use explicit isolated paths. The installer does not start agents.
 
 Local checkout: `C:/Users/user/source/agent-exam-kit`. No verified WorkBite Task
 binding was available, so this existing checkout was not enrolled in StorageGuardian.
+
+## Unix 0.2.0
+
+- Replaced the Unix Python bootstrap with a POSIX `sh` installer.
+- WSL Ubuntu x64: installation passed with a restricted PATH that contains no
+  Python, Node, Git, jq, unzip, Bash or sudo. Herdr 0.9.5 executed successfully.
+- Checked dry run, required skill references/scanner presence, repeated installation,
+  preservation of a customized skill and refusal of a corrupted cached executable.
+- Legacy Python tests: all 6 passed. Worker deployment dry run passed.
+- Skills are redistributed in a reproducible 397,294-byte archive with upstream
+  licenses and source commit metadata. Installer pins its SHA-256.
+- macOS and ARM64 remain unexecuted. Actual Cofa host OS is not explicitly named
+  in the provided guides; use `uname -s` inside the actual workspace to verify.
