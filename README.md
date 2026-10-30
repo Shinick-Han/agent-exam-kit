@@ -1,10 +1,10 @@
 # Agent exam kit
 
-시험과 실습에서 반복되는 환경 설정 시간을 줄이기 위해 만든 개인 설치 번들이다. 평소 사용하는 공개 도구인 Herdr TUI와 글쓰기 Skill 3개를 한 명령으로 설치한다.
+시험과 실습에서 반복되는 환경 설정 시간을 줄이기 위해 만든 개인 설치 번들이다. Herdr TUI, 글쓰기 Skill 3개, 구현 전 조사 Skill인 `search-first-exam`을 한 명령으로 설치한다.
 
 ## 만든 목적
 
-환경 설정을 자동화해 요구사항 파악, 구현, 검증에 쓸 시간을 확보하려고 준비했다. Herdr TUI는 코딩 에이전트의 터미널 세션을 관리하고, 글쓰기 Skill은 계획 문서와 작업 기록의 표현을 다듬는 데 사용한다.
+환경 설정을 자동화해 요구사항 파악, 구현, 검증에 쓸 시간을 확보하려고 준비했다. Herdr TUI는 코딩 에이전트의 터미널 세션을 관리하고, 글쓰기 Skill은 계획 문서와 작업 기록의 표현을 다듬는 데 사용한다. `search-first-exam`은 구현 전에 기존 코드와 허용된 공개 자료를 찾아 재사용 여부를 판단한다.
 
 이 저장소의 역할은 공개 도구를 내려받고 버전을 확인해 지정된 경로에 설치하는 것이다. 개별 시험 과제의 문제, 답안이나 완성된 풀이를 제공하지 않는다. 실제 과제의 해석과 구현, 결과 검증은 사용자가 제공된 작업 환경에서 수행한다.
 
@@ -13,7 +13,7 @@
 - [install.sh](install.sh): Unix 설치기가 내려받는 파일, 검증 절차와 설치 경로.
 - [manifest.json](manifest.json): 원본 저장소, 고정한 커밋과 Herdr 버전, 원본 다운로드의 SHA-256.
 - [build_unix_bundle.py](build_unix_bundle.py): 공개 원본에서 필요한 Skill 파일을 모으는 과정.
-- [공개 릴리스](https://github.com/Shinick-Han/agent-exam-kit/releases/tag/v0.2.0): Skill 묶음과 해당 파일의 SHA-256.
+- [공개 릴리스](https://github.com/Shinick-Han/agent-exam-kit/releases/tag/v0.3.0): Skill 묶음과 해당 파일의 SHA-256.
 - [VERIFICATION.md](VERIFICATION.md): 설치 테스트 결과와 확인 범위.
 
 설치 결과는 설치 디렉터리의 기록 파일에 남긴다. `kit.shinick.dev`는 이 저장소의 공개 설치 스크립트를 제공하는 짧은 주소다.
@@ -31,10 +31,10 @@ curl -fsSL https://kit.shinick.dev | sh
 고정된 공개 원본 주소:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Shinick-Han/agent-exam-kit/v0.2.0/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/Shinick-Han/agent-exam-kit/v0.3.0/install.sh | sh
 ```
 
-Windows PowerShell용 기존 설치기는 Python 3.9 이상을 사용한다:
+Windows PowerShell용 기존 v0.1.0 설치기는 Python 3.9 이상을 사용하며 Herdr와 글쓰기 Skill 3개를 설치한다. `search-first-exam`은 Unix v0.3.0 번들에 포함되어 있다.
 
 ```powershell
 irm https://raw.githubusercontent.com/Shinick-Han/agent-exam-kit/v0.1.0/install.ps1 | iex
@@ -60,10 +60,23 @@ Windows:
 | anti-defensive-writing | https://github.com/Kiterlin/anti-defensive-writing | `~/.agents/skills/anti-defensive-writing` |
 | avoid-ai-writing | https://github.com/conorbronsdon/avoid-ai-writing | `~/.agents/skills/avoid-ai-writing` |
 | stop-slop-ko | https://github.com/leeandev/stop-slop-ko | `~/.agents/skills/stop-slop-ko` |
+| search-first-exam | [이 저장소의 시험용 수정본](skills/search-first-exam/SKILL.md) | `~/.agents/skills/search-first-exam` |
 
 Herdr의 GUI 앱이 아닌 터미널 버전을 설치한다. 각 Skill의 참조 문서와 스크립트도 함께 받는다.
-각 원본의 정확한 커밋, 다운로드 URL과 SHA-256은 `manifest.json`에 있다.
+글쓰기 Skill 원본의 정확한 커밋, 다운로드 URL과 SHA-256은 `manifest.json`에 있다. `search-first-exam`의 원본 커밋과 변경 범위는 해당 `SKILL.md`에 기록한다. 전체 묶음에는 `sources.json`도 포함한다.
 원본 도구는 각 저장소의 라이선스를 따른다. 저장소에는 설치 코드를 공개하고, 릴리스에는 공개 Skill 파일을 원본 라이선스와 출처 정보와 함께 묶어 배포한다.
+
+## search-first-exam
+
+[원본 search-first](https://github.com/affaan-m/everything-claude-code/blob/6f1881aeafa3c48f7b603cc4be4b2e4e70daad59/skills/search-first/SKILL.md)는 OSS 전용 검색기가 아니다. 패키지, MCP, 서비스와 공개 저장소까지 검토하는 워크플로다. 이 번들은 원본을 수정한 `search-first-exam`을 설치하며, 기존 `search-first`는 보존한다.
+
+- 제공된 프로젝트 코드와 표준 라이브러리를 먼저 확인한다.
+- 외부 조사가 필요하면 일반적인 기술 용어로 공개 문서와 OSS를 찾는다. 과제 내용과 코드를 검색어로 전송하지 않는다.
+- 공개 코드의 라이선스와 버전, 실제 검증 결과를 확인한다. GitHub 공개 여부만으로 OSS라고 판단하지 않는다.
+- 제공된 Codex를 사용한다. Claude 전용 호출, Aside 자동 조작, 개인 인증 설정 조회와 외부 서비스 설정 지시는 포함하지 않는다.
+- 근거가 충분하면 구현으로 넘어간다. 조사 자체를 늘리는 데 시간을 쓰지 않는다.
+
+원본의 MIT 라이선스를 함께 배포한다. 이 수정본은 알려진 응시 조건에 맞춰 범위를 좁힌 것으로, 운영사의 사용 승인을 뜻하지 않는다.
 
 ## 설치 동작
 
@@ -108,7 +121,7 @@ Unix 설치기는 Linux/macOS와 x64/ARM64를 감지하며 지원하지 않는 �
 ## 번들 재생성
 
 `python build_unix_bundle.py`는 개발자 PC에서만 실행한다. 고정한 공개 원본으로 검증된 Skill 압축 파일과 Python 없는 `install.sh`를 생성한다.
-`release/writing-skills.tar.gz`와 `release/SHA256SUMS`는 공개 v0.2.0 릴리스에 첨부한다.
+`release/writing-skills.tar.gz`와 `release/SHA256SUMS`는 공개 v0.3.0 릴리스에 첨부한다. 압축 파일 이름은 이전 버전과 같지만 조사 Skill도 포함한다.
 `lock_sources.py`는 기존 Python 진입점을 `install-python.sh`로 생성하며 Unix 진입점을 덮어쓰지 않는다.
 
 ## 시험에서 사용

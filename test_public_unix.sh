@@ -17,7 +17,7 @@ curl -fsSL https://kit.shinick.dev -o "$testroot/install.sh"
 cmp "$repo/install.sh" "$testroot/install.sh"
 curl -fsSL https://kit.shinick.dev | /bin/sh -s -- --root "$testroot/root" --skills-dir "$testroot/skills"
 "$testroot/root/bin/herdr" --version
-for name in anti-defensive-writing avoid-ai-writing stop-slop-ko; do
+for name in anti-defensive-writing avoid-ai-writing stop-slop-ko search-first-exam; do
   test -f "$testroot/skills/$name/SKILL.md"
 done
 test -f "$testroot/skills/avoid-ai-writing/references/patterns.md"

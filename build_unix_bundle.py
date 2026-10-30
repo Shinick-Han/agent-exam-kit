@@ -21,7 +21,17 @@ for item in manifest["skills"]:
             selected["UPSTREAM-LICENSE"] = archive.read(license_path)
     for name, content in selected.items():
         files["skills/" + item["name"] + "/" + name] = content
-files["sources.json"] = json.dumps(manifest["skills"], indent=2).encode()
+local_skill = root / "skills" / "search-first-exam"
+for path in sorted(local_skill.rglob("*")):
+    if path.is_file():
+        files["skills/search-first-exam/" + path.relative_to(local_skill).as_posix()] = path.read_bytes()
+sources = manifest["skills"] + [{
+    "name": "search-first-exam",
+    "source": "https://github.com/Shinick-Han/agent-exam-kit/tree/v0.3.0/skills/search-first-exam",
+    "upstream": "https://github.com/affaan-m/everything-claude-code/blob/6f1881aeafa3c48f7b603cc4be4b2e4e70daad59/skills/search-first/SKILL.md",
+    "sha256": hashlib.sha256((local_skill / "SKILL.md").read_bytes()).hexdigest(),
+}]
+files["sources.json"] = json.dumps(sources, indent=2).encode()
 stream = io.BytesIO()
 with tarfile.open(fileobj=stream, mode="w", format=tarfile.USTAR_FORMAT) as archive:
     for name, content in sorted(files.items()):

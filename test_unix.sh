@@ -21,11 +21,13 @@ run_install --dry-run
 [ ! -e "$testroot/root" ]
 run_install
 "$testroot/root/bin/herdr" --version
-for name in anti-defensive-writing avoid-ai-writing stop-slop-ko; do
+for name in anti-defensive-writing avoid-ai-writing stop-slop-ko search-first-exam; do
   [ -f "$testroot/skills/$name/SKILL.md" ]
 done
 [ -f "$testroot/skills/avoid-ai-writing/references/patterns.md" ]
 [ -f "$testroot/skills/stop-slop-ko/scripts/slop_scan.py" ]
+[ -s "$testroot/skills/search-first-exam/UPSTREAM-LICENSE" ]
+cmp "$repo/skills/search-first-exam/SKILL.md" "$testroot/skills/search-first-exam/SKILL.md"
 printf 'customized' > "$testroot/skills/anti-defensive-writing/SKILL.md"
 run_install
 [ "$(cat "$testroot/skills/anti-defensive-writing/SKILL.md")" = customized ]

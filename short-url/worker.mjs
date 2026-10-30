@@ -11,7 +11,7 @@ export default {
         "Content-Type": "text/plain; charset=utf-8",
         "Cache-Control": "public, max-age=300",
         "X-Content-Type-Options": "nosniff",
-        "X-Kit-Version": "0.2.0"
+        "X-Kit-Version": "0.3.0"
       }});
     }
     if (url.pathname === "/source") {

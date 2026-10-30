@@ -57,3 +57,18 @@ binding was available, so this existing checkout was not enrolled in StorageGuar
 - curl HEAD checks on custom domain and workers.dev endpoint returned HTTP 200
   with `X-Kit-Version: 0.2.0`. A separate Python urllib probe received Cloudflare
   error 1010; curl, which is the documented installer transport, succeeded.
+
+## Unix 0.3.0
+
+- Added `search-first-exam` as a separate skill; original `search-first` directories
+  are not replaced. Upstream commit, source hash and MIT license are included.
+- Skill frontmatter validation passed. Korean README scanner: WARN 0, INFO 0.
+- Windows legacy Python suite: 6 tests passed.
+- WSL Ubuntu x64 restricted-PATH installation passed with all four skills and
+  Herdr 0.9.5. Installed adaptation matched the checked-in file and its license
+  was present. Repeat installation, customized-file preservation and corrupted
+  executable refusal passed.
+- Skill bundle: 399,287 bytes, SHA-256
+  `55cb53f11d7087fa8aa5d6109761b8c78a9e91543a55bf76e8e10f50a906bc0d`.
+- Dedicated Worker deployment dry run passed. This validates packaging and
+  installation; it does not establish exam approval or model behavior in an exam.
