@@ -15,6 +15,9 @@ Date: 2026-10-30
 | Archive parent traversal / absolute path / symlink | Rejected |
 | Dry run | No installation directories created |
 | Mock Codex auth sentinel | Unchanged after installation |
+| Published v0.1.0 PowerShell entry point | Downloaded from public raw URL; all four components installed in isolated Windows paths and Herdr 0.9.5 executed |
+| Published v0.1.0 curl-to-bash entry point | Public bootstrap and manifest fetched in WSL; hash-checked cached components installed in isolated Linux paths and Herdr 0.9.5 executed |
+| Korean README style scanner | stop-slop-ko PASS, WARN 0, INFO 0 |
 
 The traversal fixture originally used a harmless backslash separator, which Python's
 ZIP implementation normalizes on Windows. The fixture was corrected to test an actual
