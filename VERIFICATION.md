@@ -49,3 +49,11 @@ binding was available, so this existing checkout was not enrolled in StorageGuar
   licenses and source commit metadata. Installer pins its SHA-256.
 - macOS and ARM64 remain unexecuted. Actual Cofa host OS is not explicitly named
   in the provided guides; use `uname -s` inside the actual workspace to verify.
+- Deployed the dedicated Worker and `kit.shinick.dev` hostname. The exact hostname
+  route takes precedence over the existing gateway wildcard; no gateway code changed.
+- Public short-URL smoke test passed using fresh network downloads with Python,
+  Node, Git and jq absent from PATH. The served script matched `install.sh` exactly,
+  all three skills installed, and Herdr 0.9.5 executed.
+- curl HEAD checks on custom domain and workers.dev endpoint returned HTTP 200
+  with `X-Kit-Version: 0.2.0`. A separate Python urllib probe received Cloudflare
+  error 1010; curl, which is the documented installer transport, succeeded.
